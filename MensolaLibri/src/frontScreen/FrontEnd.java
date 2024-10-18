@@ -84,6 +84,62 @@ public class FrontEnd {
         }while (ripetizione);
     }
 
+    public static int posizioneTitolo(Libro[] mensola, String titolo, int libriInseriti){
+        for (int i = 0; i < libriInseriti; i++) {
+            if (titolo.equals(mensola[i].titolo)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    public static int numeroAutoriUguali(Libro[] mensola, String autore, int libriInseriti){
+        int contatore=0;
+        for (int i = 0; i < libriInseriti; i++) {
+            if (autore.equals(mensola[i].autore)){
+                contatore++;
+            }
+        }
+        if (contatore!=0)
+            return contatore;
+        else
+            return -1;
+    }
+    public static Libro[] cancellaTitolo(Libro[] mensola,int libriInseriti,String titolo){
+        Libro[] libro=new Libro[mensola.length -1];
+        for (int i = 0; i < libriInseriti-1; i++) {
+            if (i==posizioneTitolo(mensola,titolo,libriInseriti)){
+                libro[i]=mensola[i+1];
+            }else
+                libro[i]=mensola[i];
+        }
+        return libro;
+    }
+
+    public static int[] posizioneAutore(Libro[] mensola, String autore, int libriInseriti){
+        int[] posizioni=new int[numeroAutoriUguali(mensola,autore,libriInseriti)];
+        if (posizioni[0]!=-1) {
+            for (int i = 0; i < libriInseriti; i++) {
+                if (autore.equals(mensola[i].autore)) {
+                    posizioni[i] = i;
+                }
+            }
+            return posizioni;
+        }else {
+            return posizioni;
+        }
+    }
+
+    public static void visualizzaAutori(Libro[] mensola,int libriInseriti,Scanner keyboard,int[] posizione){
+        if (!controlloVisualizzazione(libriInseriti)) {
+            for (int i = 0; i < posizione.length; i++) {
+                System.out.println(mensola[posizione[i]].toString());
+                keyboard.nextLine();
+            }
+        }else {
+            System.out.println("Non hai ancora inserito dei libri");
+            keyboard.nextLine();
+        }
+    }
 
     public static boolean controlloPagine(Libro libro){
         if(libro.numeroPagine<=0)
