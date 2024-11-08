@@ -9,30 +9,28 @@ public class Giostra {
     public LocalDateTime[] oraGiostra = new LocalDateTime[10];
     public int biglietto;
 
-    public void setBiglietto(int biglietto) {
-        this.biglietto = biglietto;
-    }
-
-    public static void VisualizzaGiostre(ArrayList<Giostra> giostra, int posizione) {
+    public static void VisualizzaGiostre(Giostra giostra) {
         // Scorre l'array giostre della persona all'indice 'posizione'
-        for (int i = 0; i < giostra.get(posizione).giostre.length; i++) {
+        for (int i = 0; i < giostra.giostre.length; i++) {
             // Verifica se l'elemento dell'array giostre è diverso da null
-            if (giostra.get(posizione).giostre[i] != null) {
+            if (giostra.giostre[i] != null) {
                 // Stampa il nome della giostra e l'orario della giostra
-                System.out.println("Giostra: " + giostra.get(posizione).giostre[i] +
-                        " Ora della giostra: " + giostra.get(posizione).oraGiostra[i] + "\n");
+                System.out.println("Giostra: " + giostra.giostre[i] +
+                        " Ora della giostra: " + giostra.oraGiostra[i]);
             }
         }
     }
 
 
-    public static void aggiungiGiostra(String giostra, ArrayList<Giostra> giostre, int posizione) {
-        for (int j = 0; j < giostre.size(); j++) {
-            if (giostre.get(posizione).giostre[j] == null) {
-                giostre.get(posizione).giostre[j]=giostra;
-                giostre.get(posizione).oraGiostra[j]=LocalDateTime.now();
+    public static void aggiungiGiostra(String giostra, ArrayList<Giostra> giostre,Persona persona) {
+        for (Giostra g : giostre) {
+            int posizione=0;
+            if (g.biglietto== persona.biglietto && g.giostre[posizione] == null) {
+                g.giostre[posizione]=giostra;
+                g.oraGiostra[posizione]=LocalDateTime.now();
                 return;
-            }
+            }else
+                posizione++;
         }
     }
 }

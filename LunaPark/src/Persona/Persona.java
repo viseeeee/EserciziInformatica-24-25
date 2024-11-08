@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.Duration;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Persona {
     public String nome;
@@ -17,7 +18,7 @@ public class Persona {
     @Override
     public String toString(){
         Duration durata=Duration.between(entrata, LocalDateTime.now());
-        return String.format("Nome:%s  Cognome:%s  Biglietto:%s  Ore di permanenza:%s  Minuti di permanenza:%s",nome,cognome,biglietto,durata.toHours(),durata.toMinutes());
+        return String.format("Nome:%s  Cognome:%s  Biglietto:%s  Ore di permanenza:%s  Minuti di permanenza:%s  Accesso:%S",nome,cognome,biglietto,durata.toHours(),durata.toMinutes(),presenza);
     }
 
     public static void generazioneBiglietto(ArrayList<Persona> lunaPark, int personeInserite,Persona persona) {
@@ -65,9 +66,10 @@ public class Persona {
         return -1;
     }
 
-    public static int posizioneBiglietto(ArrayList<Persona> lunaPark,ArrayList<Giostra> giostre ) {
-        for (int i=0;i<lunaPark.size();i++) {
-            if (lunaPark.get(i).biglietto==giostre.get(i).biglietto){
+    //returna la posizione del biglietto
+    public static int posizioneBiglietto(Persona lunaPark, ArrayList<Giostra> giostre ) {
+        for (int i=0;i<giostre.size();i++) {
+            if (lunaPark.biglietto==giostre.get(i).biglietto){
                 return i;
             }
         }
@@ -76,15 +78,14 @@ public class Persona {
 
     public static void rimozioneUtente(ArrayList<Persona> lunaPark,int biglietto,ArrayList<Giostra> giostra) {
         for (int i = 0; i < lunaPark.size(); i++) {
-            if (biglietto==lunaPark.get(i).biglietto) {
-                lunaPark.remove(i);
+            if (biglietto==giostra.get(i).biglietto) {
                 giostra.remove(i);
-                return;
+            }
+            if (biglietto==lunaPark.get(i).biglietto) {
+                lunaPark.get(i).presenza=Accesso.fuori;
             }
         }
     }
-
-
-    }
+}
 
 

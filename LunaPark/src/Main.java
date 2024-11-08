@@ -26,14 +26,17 @@ public class Main {
             ripetizione=true;
             switch (Tools.menu(menu,keyboard)){
                 case 1->{
-                Persona persona=Persona.inserimentoPersona(lunaPark,keyboard,personeInserite);
-                //inserisce persona dentro lunaPark
-                lunaPark.add(persona);
-                int biglietto=lunaPark.get(personeInserite).biglietto;
-                Giostra personaGiostra=new Giostra();
-                personaGiostra.biglietto=biglietto;
-                giostre.add(personaGiostra);
-                personeInserite++;
+                    if(personeInserite<20) {
+                        Persona persona = Persona.inserimentoPersona(lunaPark, keyboard, personeInserite);
+                        //inserisce persona dentro lunaPark
+                        lunaPark.add(persona);
+                        int biglietto = lunaPark.get(personeInserite).biglietto;
+                        Giostra personaGiostra = new Giostra();
+                        personaGiostra.biglietto = biglietto;
+                        giostre.add(personaGiostra);
+                        personeInserite++;
+                    }else
+                        System.out.println("Hai inserito il numero massimo di persone che possono entrare");
                 }
                 case 2->{
                     if (personeInserite!=0) {
@@ -43,8 +46,7 @@ public class Main {
                             System.out.println("Non è presente nessun utente con quel biglietto");
                         else {
                             Persona.rimozioneUtente(lunaPark,biglietto,giostre);
-                            System.out.println("Utente rimosso");
-                            personeInserite--;
+                            System.out.println("Giostre rimosse");
                         }
                     }else {
                         System.out.println("Non hai ancora inserito delle persone");
@@ -60,20 +62,20 @@ public class Main {
                     }else {
                         System.out.println("Inserisci la giostra nel quale vuole partecipare");
                         String giostra=keyboard.nextLine();
-                        Giostra.aggiungiGiostra(giostra,giostre,Persona.trovaBiglietto(lunaPark,biglietto));
+                        for (Persona persona : lunaPark)
+                            if (persona.biglietto==biglietto)
+                                Giostra.aggiungiGiostra(giostra,giostre,persona);
                     }
                 }
                 case 4->{
-                    int posizione=0;
                     //controlla se le persone sono state inserite
                     if (personeInserite!=0) {
                     for (Persona persona : lunaPark){
                         System.out.println(persona.toString());
                         //metodo che returna la posizione di giostra
-                        if (giostre.get(posizione).giostre[0]!=null){
-                            Giostra.VisualizzaGiostre(giostre,Persona.posizioneBiglietto(lunaPark,giostre));
+                        if (Persona.posizioneBiglietto(persona,giostre)!=-1){
+                            Giostra.VisualizzaGiostre(giostre.get(Persona.posizioneBiglietto(persona,giostre)));
                         }
-                        posizione++;
                     }
                     }else {
                         System.out.println("Non hai ancora inserito delle persone");
