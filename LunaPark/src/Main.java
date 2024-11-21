@@ -1,3 +1,4 @@
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.IllegalFormatCodePointException;
 import java.util.Scanner;
@@ -40,8 +41,19 @@ public class Main {
                 }
                 case 2->{
                     if (personeInserite!=0) {
-                        System.out.println("Inserisci il numero del biglietto della persona");
-                        int biglietto =Integer.parseInt(keyboard.nextLine());
+                        int biglietto = 0;
+                        boolean sbagliato;
+                        do {
+                            try {
+                                sbagliato=true;
+                                System.out.println("Inserisci il numero del biglietto della persona");
+                                biglietto = Integer.parseInt(keyboard.nextLine());
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
+                                sbagliato = false;
+                            }
+                        }while (!sbagliato);
+
                         if (!Persona.controlloBiglietto(biglietto,lunaPark))
                             System.out.println("Non è presente nessun utente con quel biglietto");
                         else {
@@ -53,10 +65,20 @@ public class Main {
                     }
                 }
 
-                case 3->{
+                case 3-> {
                     //inserimento giostre
-                    System.out.println("Inserisci il biglietto");
-                    int biglietto =Integer.parseInt(keyboard.nextLine());
+                    int biglietto = 0;
+                    boolean sbagliato;
+                    do {
+                        try {
+                            sbagliato = true;
+                            System.out.println("Inserisci il biglietto");
+                            biglietto = Integer.parseInt(keyboard.nextLine());
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                            sbagliato = false;
+                        }
+                    }while (!sbagliato);
                     if (Persona.trovaBiglietto(lunaPark,biglietto)==-1){
                         System.out.println("Il biglietto che hai inserito non è presente");
                     }else {
