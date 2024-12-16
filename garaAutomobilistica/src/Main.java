@@ -1,6 +1,5 @@
 import Scuderia.Auto;
 import utility.Tools;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import Scuderia.*;
@@ -13,6 +12,7 @@ public class Main {
                 "Inserimento scuderia",
                 "Mosta scuderie",
                 "Mostra piloti",
+                "Corri gara",
                 "Esci"
         };
         ArrayList<Auto> auto=new ArrayList<Auto>();
@@ -22,7 +22,7 @@ public class Main {
             ciclo = true;
             switch (Tools.menu(menu,keyboard)){
                 case 1->{
-                    Auto inserimentoAuto=new Auto();
+                    Auto inserimentoAuto;
                     Pilota inserimentoPilota=new Pilota();
                     inserimentoAuto=Auto.inserimentoScuderia(keyboard);
                     inserimentoAuto.setPilota(Pilota.inserimentoPilota(keyboard));
@@ -66,6 +66,20 @@ public class Main {
                     }
                 }
                 case 4->{
+                    //corrigara
+                    try {
+                        Auto.controlloPiloti(auto);
+                        for (Auto a : auto) {
+                            a.getPilota().setCronometro(Cronometro.generaTempo());
+                        }
+                        Auto.stampaClassifica(auto);
+                        keyboard.nextLine();
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                case 5->{
+                    //termina il programma
                     ciclo = false;
                     System.out.println("Programma terminato");
                 }

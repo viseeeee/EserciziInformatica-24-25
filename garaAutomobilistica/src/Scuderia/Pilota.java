@@ -1,12 +1,14 @@
 package Scuderia;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Pilota extends Auto{
+public class Pilota extends Auto {
     private String nome;
     private String cognome;
     private String nazionalita;
     private int eta;
+    private Cronometro cronometro;
 
     public String getNome() {
         return nome;
@@ -40,10 +42,19 @@ public class Pilota extends Auto{
         this.eta = eta;
     }
 
+    public void setCronometro(Cronometro cronometro) {
+        this.cronometro = cronometro;
+    }
+
+    public Cronometro getCronometro() {
+        return cronometro;
+    }
+
     @Override
     public String toString() {
         return String.format("Nome:%s   Cognome:%s  Nazionalità:%s  eta:%s", nome, cognome, nazionalita, eta);
     }
+
 
     public static Pilota inserimentoPilota(Scanner keyboard) {
         Pilota inserimento = new Pilota();
@@ -65,5 +76,7 @@ public class Pilota extends Auto{
         }while (ciclo);
         return inserimento;
     }
+
+
 
 }
