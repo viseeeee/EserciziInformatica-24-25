@@ -41,7 +41,7 @@ public class Auto {
 
     @Override
     public String toString() {
-        return String.format("Scuderia: %s; Cilindrata: %scc;", scuderia, cilindrata);
+        return String.format("Scuderia: %s; Cilindrata: %s cc;", scuderia, cilindrata);
     }
 
     public static void controlloNumeroScuderie(int numeroScuderie) throws Exception{
@@ -78,13 +78,10 @@ public class Auto {
 
 
     public static void stampaClassifica(ArrayList<Auto> auto) {
-        // Bubble sort per ordinare le auto in base al tempo del cronometro
         for (int i = 0; i < auto.size() - 1; i++) {
             for (int j = 0; j < auto.size() - i - 1; j++) {
-                // Confronta i tempi tra auto[j] e auto[j + 1]
                 if (confrontaTempi(auto.get(j).getPilota().getCronometro(),
                         auto.get(j + 1).getPilota().getCronometro()) > 0) {
-                    // Scambia le auto
                     Auto tempAuto = auto.get(j);
                     auto.set(j, auto.get(j + 1));
                     auto.set(j + 1, tempAuto);
@@ -110,5 +107,32 @@ public class Auto {
     public static void controlloPiloti(ArrayList<Auto> auto)throws Exception{
         if (auto.size()<=1)
             throw new Exception("Inserisci altri piloti");
+    }
+
+
+    public static void cambioScuderia(ArrayList<Auto> auto,Scanner keyboard)throws Exception{
+        Auto pilotaTemp=new Auto();
+        String temp;
+        pilotaTemp.setPilota(Pilota.inserimentoPilota(keyboard));
+        for (Auto a:auto){
+            if (controlloPilotaEsistente(auto,pilotaTemp)){
+                do {
+                    temp=a.getScuderia();
+                    System.out.println("Inserisci la scuderia");
+                    a.setScuderia(keyboard.nextLine());
+                }while (a.getScuderia().equals(temp));
+                    System.out.println("Inserisci la cilindrata della macchina");
+                    a.setCilindrata(keyboard.nextLine());
+            }
+        }
+        throw new Exception("Il pilota non esiste");
+    }
+
+    public static boolean controlloPilotaEsistente(ArrayList<Auto> auto, Auto inserimentoAuto){
+        for (Auto a : auto) {
+            if (a.getPilota().getNome().equals(inserimentoAuto.getPilota().getNome()) && a.getPilota().getCognome().equals(inserimentoAuto.getPilota().getCognome()) && a.getPilota().getEta()==inserimentoAuto.getPilota().getEta())
+                return true;
+        }
+        return false;
     }
 }

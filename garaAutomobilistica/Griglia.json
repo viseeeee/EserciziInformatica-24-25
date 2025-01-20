@@ -1,0 +1,19 @@
+{
+  "scuderia": "a",
+  "pilota": {
+    "nome": "a",
+    "cognome": "a",
+    "nazionalita": "2",
+    "eta": 2
+  },
+  "cilindrata": "a"
+}{
+  "scuderia": "a",
+  "pilota": {
+    "nome": "a",
+    "cognome": "b",
+    "nazionalita": "a",
+    "eta": 2
+  },
+  "cilindrata": "b"
+}
